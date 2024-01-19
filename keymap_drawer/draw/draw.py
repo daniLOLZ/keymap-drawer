@@ -132,7 +132,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
             if draw_checkerbox:
                 if ind % n_cols == 0:
                     checker_mask = UtilsMixin._invert_mask(checker_mask)
-                if checker_mask[ind]: # only draw the rectangle if it's the proper layer for which to do so
+                if checker_mask[ind % n_cols]: # only draw the rectangle if it's the proper layer for which to do so
                     # pad_adjustment_h =
                     # pad_adjustment_w =
                     # todo: compute when it's the last row/column for proper adjustment
@@ -212,7 +212,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     layer[key_position].type = "ghost"
 
         # write to internal output stream self.out
-        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns, 
+        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns,
                               draw_checkerbox=self.cfg.enable_checkerboard_background)
 
         if not keys_only:
