@@ -133,9 +133,13 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                 if ind % n_cols == 0:
                     checker_mask = UtilsMixin._flip_mask(checker_mask)
                 if checker_mask[ind]: # only draw the rectangle if it's the proper layer for which to do so
+                    # pad_adjustment_h = 
+                    # pad_adjustment_w = 
+                    # todo: compute when it's the last row/column for proper adjustment
+
                     # need to calculate height beforehand tho
                     # temporary value here bc i don't know how to get the value
-                    self.out.write(f'<rect height="{round(392.0)}" width="{round(col_width)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n')
+                    self.out.write(f'<rect height="{round(392.0+self.cfg.outer_pad_h)}" width="{round(col_width+self.cfg.outer_pad_h)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n')
 
             # draw layer name
             if draw_header:
