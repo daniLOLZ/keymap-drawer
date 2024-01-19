@@ -133,13 +133,17 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                 if ind % n_cols == 0:
                     checker_mask = UtilsMixin._invert_mask(checker_mask)
                 if checker_mask[ind]: # only draw the rectangle if it's the proper layer for which to do so
-                    # pad_adjustment_h = 
-                    # pad_adjustment_w = 
+                    # pad_adjustment_h =
+                    # pad_adjustment_w =
                     # todo: compute when it's the last row/column for proper adjustment
 
                     # need to calculate height beforehand tho
                     # temporary value here bc i don't know how to get the value
-                    self.out.write(f'<rect height="{round(392.0+self.cfg.outer_pad_h)}" width="{round(col_width+self.cfg.outer_pad_h)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n')
+                    self.out.write(
+                        f'<rect height="{round(392.0+self.cfg.outer_pad_h)}" \\
+                            width="{round(col_width+self.cfg.outer_pad_h)}" \\
+                            class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n'
+                        )
 
             # draw layer name
             if draw_header:
@@ -210,7 +214,8 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     layer[key_position].type = "ghost"
 
         # write to internal output stream self.out
-        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns, draw_checkerbox=self.cfg.enable_checkerboard_background)
+        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns, 
+                              draw_checkerbox=self.cfg.enable_checkerboard_background)
 
         if not keys_only:
             layout, combo_layers = self.create_combo_diagrams(self.cfg.combo_diagrams_scale, ghost_keys)
