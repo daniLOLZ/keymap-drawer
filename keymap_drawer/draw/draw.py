@@ -131,7 +131,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
 
             if draw_checkerbox:
                 if ind % n_cols == 0:
-                    checker_mask = UtilsMixin._flip_mask(checker_mask)
+                    checker_mask = UtilsMixin._invert_mask(checker_mask)
                 if checker_mask[ind]: # only draw the rectangle if it's the proper layer for which to do so
                     # pad_adjustment_h = 
                     # pad_adjustment_w = 
@@ -172,7 +172,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                 p = Point(original_x, p.y + outer_pad_h + max_height)
                 max_height = 0.0
             else:
-                p += Point(col_width + column_padding, 0)
+                p += Point(col_width, 0)
 
         return Point(original_x + col_width * n_cols, p.y)
 
