@@ -104,6 +104,14 @@ _Type:_ `bool`
 
 _Default:_ `true`
 
+#### `enable_checkerboard_background`
+
+Whether to make a checkerboard pattern for the various layers.
+
+_Type:_ `bool`
+
+_Default:_ `false`
+
 #### `small_pad`
 
 Padding from edge of a key representation to top ("shifted") and bottom ("hold") legends.
