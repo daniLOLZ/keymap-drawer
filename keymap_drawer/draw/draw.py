@@ -108,6 +108,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
         combos_per_layer: Mapping[str, Sequence[ComboSpec]],
         n_cols: int = 1,
         draw_header: bool = True,
+        draw_checkerbox: bool = False,
         pad_divisor: int = 1,
     ) -> Point:
         """
@@ -119,6 +120,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
         original_x = p.x
         col_width = layout.width + 2 * outer_pad_w
         max_height = 0.0
+        checker_mask = ([1,0]*n_cols)[:n_cols]
         for ind, (name, layer_keys) in enumerate(layers.items()):
             outer_pad_h = self.cfg.outer_pad_h // pad_divisor if ind > n_cols - 1 else self.cfg.outer_pad_h
 
@@ -126,6 +128,14 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
             self.out.write(
                 f'<g transform="translate({round(p.x + outer_pad_w)}, {round(p.y)})" class="layer-{escape(name)}">\n'
             )
+
+            if draw_checkerbox:
+                if ind % n_cols == 0:
+                    checker_mask = UtilsMixin._flip_mask(checker_mask)
+                if checker_mask[ind]: # only draw the rectangle if it's the proper layer for which to do so
+                    # need to calculate height beforehand tho
+                    # temporary value here bc i don't know how to get the value
+                    self.out.write(f'<rect height="{round(392.0)}" width="{round(col_width)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n')
 
             # draw layer name
             if draw_header:
@@ -158,7 +168,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                 p = Point(original_x, p.y + outer_pad_h + max_height)
                 max_height = 0.0
             else:
-                p += Point(col_width, 0)
+                p += Point(col_width + column_padding, 0)
 
         return Point(original_x + col_width * n_cols, p.y)
 
@@ -196,7 +206,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     layer[key_position].type = "ghost"
 
         # write to internal output stream self.out
-        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns)
+        p = self.print_layers(Point(0, 0), self.layout, layers, combos_per_layer, self.cfg.n_columns, draw_checkerbox=self.cfg.enable_checkerboard_background)
 
         if not keys_only:
             layout, combo_layers = self.create_combo_diagrams(self.cfg.combo_diagrams_scale, ghost_keys)
@@ -209,6 +219,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     combos_per_layer,
                     self.cfg.n_columns * self.cfg.combo_diagrams_scale,
                     draw_header=False,
+                    draw_checkerbox=self.cfg.enable_checkerboard_background,
                     pad_divisor=self.cfg.combo_diagrams_scale,
                 )
 

@@ -26,6 +26,9 @@ class UtilsMixin(GlyphMixin):
     def _split_text(text: str) -> list[str]:
         # do not split on double spaces, but do split on single
         return [word.replace("\x00", " ") for word in text.replace("  ", "\x00").split()]
+    @staticmethod
+    def _invert_mask(mask: list) -> list:
+        return [1-i for i in mask]
 
     def _draw_rect(self, p: Point, dims: Point, radii: Point, classes: Sequence[str]) -> None:
         self.out.write(

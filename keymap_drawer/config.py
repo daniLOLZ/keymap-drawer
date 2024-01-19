@@ -66,6 +66,9 @@ class DrawConfig(BaseSettings, env_prefix="KEYMAP_", extra="ignore"):
     # whether to add a colon after layer name while printing the layer header
     append_colon_to_layer_header: bool = True
 
+    # whether to use a checkerboard pattern as backgrounds for the layers
+    enable_checkerboard_background: bool = False
+
     # padding from edge of cap to top and bottom legends
     small_pad: float = 2.0
 
