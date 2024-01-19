@@ -140,7 +140,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     # need to calculate height beforehand tho
                     # temporary value here bc i don't know how to get the value
                     self.out.write(
-                        f'<rect height="{round(392.0+self.cfg.outer_pad_h)}" width="{round(col_width+self.cfg.outer_pad_h)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n'
+                        f'<rect height="{round(392.0)}" width="{round(col_width)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n'
                         )
 
             # draw layer name
