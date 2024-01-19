@@ -67,7 +67,7 @@ jobs:
 
       - name: Install keymap-drawer (git)
         if: inputs.install_branch != ''
-        run: python3 -m pip install "git+https://github.com/caksoylar/keymap-drawer.git@${{ inputs.install_branch }}"
+        run: python3 -m pip install "git+https://github.com/daniLOLZ/keymap-drawer.git@${{ inputs.install_branch }}"
 
       - name: Draw keymaps
         run: |
