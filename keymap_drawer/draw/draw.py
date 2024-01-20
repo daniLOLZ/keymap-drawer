@@ -137,7 +137,7 @@ class KeymapDrawer(ComboDrawerMixin, UtilsMixin):
                     # need to calculate height beforehand tho
                     # temporary value here bc i don't know how to get the value
                     self.out.write(
-                        f'<rect transform="translate({-round(outer_pad_w)}, {-round(outer_pad_h)})" height="{round(392.0+2*outer_pad_h)}" width="{round(col_width+outer_pad_w)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n'
+                        f'<rect transform="translate({-round(outer_pad_w)}, {-round(outer_pad_h/2)})" height="{round(392.0+outer_pad_h)}" width="{round(col_width)}" class="checker_background" style="fill: rgba(0,0,0,0.05)"></rect>\n'
                         )
 
             # draw layer name
